@@ -58,7 +58,7 @@ public class GetUsersDropDownRequestHandler
             queryable = queryable.Take(request.Limit.Value);
         }
         var list = await queryable
-            .Select(UsersSelector.SelectorDropDown)
+            .Select(UserSelector.SelectorDropDown)
             .ToListAsync(cancellationToken: cancellationToken);
         return new GetUsersDropDownResponseModel() { Data = list };
     }

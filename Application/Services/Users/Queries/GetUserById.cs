@@ -11,7 +11,7 @@ namespace Application.Services.Users.Queries;
 
 public class GetUserByIdRequestModel : IRequest<GetUserByIdResponseModel>
 {
-    public string ChatId { get; set; }
+    public string UserId { get; set; }
 }
 
 public class GetUserByIdRequestModelValidator : AbstractValidator<GetUserByIdRequestModel>
@@ -37,8 +37,8 @@ public class GetUserByIdRequestHandler
     )
     {
         var data = await _context.Users.GetByWithSelectAsync(
-            p => p.ChatId == request.ChatId,
-            UsersSelector.SelectorDetail,
+            p => p.Id == request.UserId,
+            UserSelector.SelectorDetail,
             cancellationToken: cancellationToken
         );
         if (data == null)

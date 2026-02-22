@@ -1,13 +1,18 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Domain.Entities;
 
-public class Category
+public class Category : Base
 {
     public string Name { get; set; }
-    public string Description { get; set; }
-    public int TotalSubCategoryCount { get; set; }
-    public int TotalProductCount { get; set; }
+    public string? Description { get; set; }
+    public string? ParentCategoryId { get; set; }
+    
+    //ForeignKeys
+    [ForeignKey("ParentCategoryId")]
+    public virtual Category? ParentCategory { get; set; }
     
     // Collections
-    public ICollection<SubCategory> SubCategories { get; set; }
-    public ICollection<Product> Products { get; set; }
+    public virtual ICollection<Category> Children { get; set; } = new List<Category>();
+    public virtual ICollection<Product> Products { get; set; } = new List<Product>();
 }

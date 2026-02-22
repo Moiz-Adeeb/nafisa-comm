@@ -2,20 +2,26 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Entities;
 
-public class Product
+public class Product : Base
 {
-    public string  Name { get; set; }
+    public string Name { get; set; }
     public string Picture { get; set; }
     public string Description { get; set; } 
-    public float Price { get; set; }
+    
+    public decimal Price { get; set; }
+    public decimal? DiscountPrice { get; set; }
+    
     public int Stock { get; set; }
     public int SoldQuantity { get; set; }
-    public string SubCategoryId { get; set; }
+
+    public bool IsActive { get; set; } = true;
+    
     public string CategoryId { get; set; }
     
     // Foreign Keys
-    [ForeignKey("SubCategoryId")]
-    public SubCategory SubCategory { get; set; }
     [ForeignKey("CategoryId")]
-    public Category Category { get; set; }
+    public virtual Category Category { get; set; }
+    
+    // Collections
+    public virtual ICollection<ProductImage> Images { get; set; } = new List<ProductImage>();
 }
