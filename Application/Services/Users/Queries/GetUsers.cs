@@ -1,10 +1,7 @@
 ﻿using System.Linq.Expressions;
-using Application.Extensions;
-using Application.Interfaces;
 using Application.Services.Users.Models;
 using Application.Shared;
 using Common.Extensions;
-using Domain.Constant;
 using Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -13,28 +10,18 @@ using Persistence.Extension;
 
 namespace Application.Services.Users.Queries;
 
-public class GetUsersRequestModel : GetPagedRequest<GetUsersResponseModel>
-{
-
-}
+public class GetUsersRequestModel : GetPagedRequest<GetUsersResponseModel>{  }
 
 public class GetUsersRequestModelValidator : PageRequestValidator<GetUsersRequestModel>
-{
-    public GetUsersRequestModelValidator()
-    {
-
-    }
-}
+{ public GetUsersRequestModelValidator() {  } }
 
 public class GetUsersRequestHandler : IRequestHandler<GetUsersRequestModel, GetUsersResponseModel>
 {
     private readonly ApplicationDbContext _context;
-    private readonly ISessionService _sessionService;
 
-    public GetUsersRequestHandler(ApplicationDbContext context, ISessionService sessionService)
+    public GetUsersRequestHandler(ApplicationDbContext context)
     {
         _context = context;
-        _sessionService = sessionService;
     }
 
     public async Task<GetUsersResponseModel> Handle(
@@ -49,11 +36,13 @@ public class GetUsersRequestHandler : IRequestHandler<GetUsersRequestModel, GetU
                 p.UserName.Contains(request.Search) || p.Name.ToLower().Contains(request.Search)
             );
         }
+        
         var list = await _context
             .Users.GetManyReadOnly(query, request)
-            .Select(UsersSelector.Selector)
+            .Select(UserSelector.Selector)
             .ToListAsync(cancellationToken: cancellationToken);
         var count = await _context.Users.ActiveCount(query, cancellationToken: cancellationToken);
+        
         return new GetUsersResponseModel() { Data = list, Count = count };
     }
 }

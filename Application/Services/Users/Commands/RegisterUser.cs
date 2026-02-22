@@ -1,24 +1,20 @@
 ﻿using Application.Exceptions;
 using Application.Extensions;
-using Application.Interfaces;
 using Application.Services.Users.Models;
-using Domain.Constant;
 using Domain.Entities;
-using Domain.Enums;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Persistence.Context;
 using Persistence.Extension;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Application.Services.Users.Commands;
 
 public class RegisterUserRequestModel : IRequest<RegisterUserResponseModel>
 {
-    public string UserName { get; set; }
+    public string Email { get; set; }
     public string Name { get; set; }
-    public string Status { get; set; }
+    public string PhoneNumber { get; set; }
     public string Password { get; set; }
     public string ConfirmPassword { get; set; }
 }
@@ -27,21 +23,19 @@ public class RegisterUserRequestModelValidator : AbstractValidator<RegisterUserR
 {
     public RegisterUserRequestModelValidator()
     {
+        RuleFor(x => x.Email).Required().EmailAddress();
         RuleFor(x => x.Name).Required().Max(50);
-        RuleFor(x => x.UserName).Required().Max(16);
+        RuleFor(x => x.PhoneNumber).Required().Phone();
         RuleFor(x => x.Password).Password().Max(50);
         RuleFor(x => x.ConfirmPassword).Matches(p => p.Password);
     }
 }
 
-public class RegisterUserRequestHandler
-    : IRequestHandler<RegisterUserRequestModel, RegisterUserResponseModel>
+public class RegisterUserRequestHandler : IRequestHandler<RegisterUserRequestModel, RegisterUserResponseModel>
 {
     private readonly ApplicationDbContext _context;
 
-    public RegisterUserRequestHandler (
-        ApplicationDbContext context
-    )
+    public RegisterUserRequestHandler (ApplicationDbContext context)
     {
         _context = context;
     }
@@ -50,25 +44,23 @@ public class RegisterUserRequestHandler
         CancellationToken cancellationToken
     )
     {
-        var username = request.UserName;
-        var existCheck = await _context.Users.ActiveAny(u => u.UserName == username);
-        if (existCheck)
-        {
-            throw new AlreadyExistsException(nameof(username));
-        }
+        var username = request.Email;
+        var existCheck = await _context.Users
+            .ActiveAny(u => u.UserName == username, cancellationToken);
+        
+        if (existCheck) throw new AlreadyExistsException(nameof(username));
 
         var user = new User()
         {
-            ChatId = Guid.NewGuid().ToString(),
-            UserName = request.UserName,
+            Email = request.Email,
             Name = request.Name,
-            Status = request.Status
+            PhoneNumber = request.PhoneNumber
         }; 
         user.PasswordHash = new PasswordHasher<User>().HashPassword(user, request.Password);
         await _context.Users.AddAsync(user, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);
-
-        return new RegisterUserResponseModel() {  };
+        
+        return new RegisterUserResponseModel() { Data = new UsersDto(user) };
     }
 }
 

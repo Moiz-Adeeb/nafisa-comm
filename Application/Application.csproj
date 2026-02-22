@@ -21,7 +21,4 @@
     <ProjectReference Include="..\Common\Common.csproj" />
     <ProjectReference Include="..\Persistence\Persistence.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\Messages\Commands\" />
-  </ItemGroup>
 </Project>

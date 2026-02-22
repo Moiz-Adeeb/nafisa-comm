@@ -1,19 +1,29 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using Domain.Enums;
 
 namespace Domain.Entities;
 
-public class Order
+public class Order : Base
 {
+    public string OrderNumber { get; set; }
+    
     public string UserId { get; set; }
-    public string ProductId { get; set; }
-    public string Quantity { get; set; }
-    public DateTime OrderDate { get; set; }
     
+    public string DeliveryAddress { get; set; }
+    public string City { get; set; }
+    public int? PostalCode { get; set; }
+    public string PhoneNumber { get; set; }
     
+    public decimal TotalAmount { get; set; }
+    
+    public OrderStatus Status { get; set; }
+    public DateTimeOffset OrderDate { get; set; }
     
     // Foreign Keys
     [ForeignKey("UserId")]
-    public User User { get; set; }
-    [ForeignKey("ProductId")]
-    public Product Product { get; set; }
+    public virtual User User { get; set; }
+    
+    // Collections
+    public virtual ICollection<OrderItem> OrderItems { get; set; }
+
 }
