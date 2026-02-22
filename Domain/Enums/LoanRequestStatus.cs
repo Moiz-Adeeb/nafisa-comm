@@ -1,0 +1,8 @@
+namespace Domain.Enums;
+
+public enum LoanRequestStatus
+{
+    Pending = 1,
+    Approved = 2,
+    Rejected = 3,
+}
