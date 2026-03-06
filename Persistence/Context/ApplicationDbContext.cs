@@ -8,9 +8,19 @@ using Microsoft.EntityFrameworkCore;
 namespace Persistence.Context
 {
     public class ApplicationDbContext
-        : IdentityDbContext<User>
+        : IdentityDbContext<
+            User,
+            Role,
+            string,
+            UserClaim,
+            UserRole,
+            IdentityUserLogin<string>,
+            RoleClaim,
+            IdentityUserToken<string>
+        >
     {
-        public DbSet<User> User { get; set; }
+        public DbSet<AppSetting> AppSettings { get; set; }
+        public DbSet<UserSetting> UserSettings { get; set; }
         public DbSet<Category> Category { get; set; }
         public DbSet<Product> Product { get; set; }
         public DbSet<ProductImage> ProductImage { get; set; }

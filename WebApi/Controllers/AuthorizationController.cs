@@ -382,7 +382,6 @@ namespace WebApi.Controllers
                 identity.AddClaim(OpenIddictConstants.Claims.Subject, user.Id!);
                 identity.AddClaim(OpenIddictConstants.Claims.Name, user.UserName);
                 identity.AddClaim(CustomClaimTypes.UserId, user.Id);
-                identity.AddClaim(CustomClaimTypes.ChatId, user.ChatId);
                 foreach (var claim in identity.Claims)
                 {
                     // Add to Access Token (for APIs) AND Identity Token (for the client/decoded object)

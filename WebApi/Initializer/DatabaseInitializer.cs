@@ -38,7 +38,7 @@ namespace WebApi.Initializer
 
         private async Task SeedUsers(ApplicationDbContext context)
         {
-            if (context.User.Any())
+            if (context.Users.Any())
             {
                 return;
             }

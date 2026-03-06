@@ -333,7 +333,6 @@ namespace WebApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHub<NotificationHub>("/notification");
-                endpoints.MapHub<ChatHub>("/chat");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}"

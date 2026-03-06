@@ -11,7 +11,7 @@ namespace Application.Services.Users.Queries;
 
 public class GetUserByIdRequestModel : IRequest<GetUserByIdResponseModel>
 {
-    public string UserId { get; set; }
+    public string Id { get; set; }
 }
 
 public class GetUserByIdRequestModelValidator : AbstractValidator<GetUserByIdRequestModel>
@@ -37,19 +37,17 @@ public class GetUserByIdRequestHandler
     )
     {
         var data = await _context.Users.GetByWithSelectAsync(
-            p => p.Id == request.UserId,
+            p => p.Id == request.Id,
             UserSelector.SelectorDetail,
             cancellationToken: cancellationToken
         );
-        if (data == null)
-        {
-            throw new NotFoundException(nameof(User));
-        }
+        if (data == null) throw new NotFoundException(nameof(User));
+        
         return new GetUserByIdResponseModel() { Data = data };
     }
 }
 
 public class GetUserByIdResponseModel
 {
-    public UsersDetailDto Data { get; set; }
+    public UserDetailDto Data { get; set; }
 }

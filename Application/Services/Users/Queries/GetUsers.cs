@@ -49,6 +49,6 @@ public class GetUsersRequestHandler : IRequestHandler<GetUsersRequestModel, GetU
 
 public class GetUsersResponseModel
 {
-    public List<UsersDto> Data { get; set; }
+    public List<UserDto> Data { get; set; }
     public int Count { get; set; }
 }

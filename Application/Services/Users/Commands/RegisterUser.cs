@@ -60,11 +60,11 @@ public class RegisterUserRequestHandler : IRequestHandler<RegisterUserRequestMod
         await _context.Users.AddAsync(user, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);
         
-        return new RegisterUserResponseModel() { Data = new UsersDto(user) };
+        return new RegisterUserResponseModel() { Data = new UserDto(user) };
     }
 }
 
 public class RegisterUserResponseModel
 {
-    public UsersDto Data { get; set; }
+    public UserDto Data { get; set; }
 }

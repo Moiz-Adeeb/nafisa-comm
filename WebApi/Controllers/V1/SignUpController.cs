@@ -68,8 +68,6 @@ public class SignUpController : BaseController
     //        EmailConfirmed = false,
     //        PasswordHash = new PasswordHasher<Users>().HashPassword(request.password),
     //    };
-
-
     //}  
     
 }

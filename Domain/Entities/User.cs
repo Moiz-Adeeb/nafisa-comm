@@ -5,14 +5,13 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Domain.Entities;
 
-[Table("Users")]
+[Table("users")]
 
 public class User : IdentityUser, IBase
 {
     public User() { }
     
     public string Name { get; set; }
-    public string ProfilePicture { get; set; }
     public DateTimeOffset CreatedDate { get; set; }
     public DateTimeOffset UpdatedDate { get; set; }
     public bool IsDeleted { get; set; }
@@ -20,7 +19,19 @@ public class User : IdentityUser, IBase
     public string DeliveryAddress { get; set; }
     public string City { get; set; }
     public int? PostalCode { get; set; }
-
-    //Foreign Keys
+    public string Image { get; set; }
+    
+    
+    /// <summary>
+    /// Navigation property for the roles this user belongs to.
+    /// </summary>
+    public virtual ICollection<UserRole> UserRoles { get; set; }
+    
+    /// <summary>
+    /// Navigation property for the claims this user possesses.
+    /// </summary>
+    public virtual ICollection<UserClaim> UserClaims { get; set; }
+    public bool IsEnabled { get; set; }
+    public IEnumerable<UserSetting> UserSettings { get; set; }
     public virtual ICollection<Order> Orders { get; set; }  
 }

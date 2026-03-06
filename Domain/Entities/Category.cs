@@ -6,6 +6,8 @@ public class Category : Base
 {
     public string Name { get; set; }
     public string? Description { get; set; }
+    
+    //Optional Parent Category if the Category is a Sub-Category
     public string? ParentCategoryId { get; set; }
     
     //ForeignKeys

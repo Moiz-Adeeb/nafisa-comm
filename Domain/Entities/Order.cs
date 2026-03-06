@@ -5,6 +5,7 @@ namespace Domain.Entities;
 
 public class Order : Base
 {
+    // Human-Readable Number Code
     public string OrderNumber { get; set; }
     
     public string UserId { get; set; }
