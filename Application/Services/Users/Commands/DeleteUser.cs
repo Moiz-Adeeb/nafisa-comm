@@ -49,9 +49,11 @@ public class DeleteUserRequestHandler
             u => u.Id == request.Id,
             cancellationToken: cancellationToken
         );
+        
         if (user == null) throw new NotFoundException(nameof(user));
         user.IsEnabled = false;
         user.IsDeleted = true;
+        
         _context.Users.Update(user);
         await _context.SaveChangesAsync(cancellationToken);
         

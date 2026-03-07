@@ -13,6 +13,7 @@ public class CategoryDetailDto : CategoryDto
 
 public class CategoryDto
 {
+    public string Id { get; set; }
     public string Name { get; set; }
     public string? Description { get; set; }
     public string? ParentCategoryId { get; set; }
@@ -23,6 +24,7 @@ public class CategoryDto
 
     public CategoryDto(Category category)
     {
+        Id = category.Id;
         Name = category.Name;
         Description = category.Description;
         ParentCategoryId = category.ParentCategoryId;
@@ -34,6 +36,7 @@ public class CategorySelector
 {
     public static readonly Expression<Func<Category, CategoryDto>> Selector = p => new CategoryDto()
     {
+        Id = p.Id,
         Name = p.Name,
         Description = p.Description,
         ParentCategoryId = p.ParentCategoryId,
@@ -42,6 +45,7 @@ public class CategorySelector
     public static readonly Expression<Func<Category, CategoryDetailDto>> SelectorDetail =
         p => new CategoryDetailDto()
         {
+            Id = p.Id,
             Name = p.Name,
             Description =  p.Description,
             ParentCategoryId = p.ParentCategoryId,
@@ -63,7 +67,7 @@ public class CategorySelector
 
             foreach (var category in flatCategories)
             {
-                category.Children = lookup[category.Name].ToList();
+                category.Children = lookup[category.Id].ToList();
             }
 
             // Return top-level categories

@@ -20,8 +20,8 @@ public class CreateCategoryRequestModelValidator : AbstractValidator<CreateCateg
 {
     public CreateCategoryRequestModelValidator()
     {
-        RuleFor(x => x.Name).Required().NotNull().NotEmpty();
-        RuleFor(y => y.Description).Max(150);
+        RuleFor(x => x.Name).Required().Max(50);
+        RuleFor(y => y.Description).Max(500);
     }
 }
 

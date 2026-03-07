@@ -8,19 +8,43 @@ using WebApi.Shared;
 
 namespace WebApi.Controllers.V1;
 
-[Route("api/v1/users")]
+[Route("api/v1/categories")]
 public class CategoryController : BaseController
 {
     /// <summary>
     /// Get Category Tree
     /// </summary>
-    /// <param name="model"></param>
     /// <returns></returns>
     [Authorize]
     [HttpGet("tree")]
-    public async Task<GetFullCategoryTreeResponseModel> GetUsers()
+    public async Task<GetFullCategoryTreeResponseModel> GetCategoryTree()
     {
         var model = new GetFullCategoryTreeRequestModel();
+        return await Mediator.Send(model);
+    }
+    
+    /// <summary>
+    /// Get Categories
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    [Authorize]
+    [HttpGet]
+    public async Task<GetCategoriesResponseModel> GetCategories([FromQuery] GetCategoriesRequestModel model)
+    {
+        return await Mediator.Send(model);
+    }
+    
+    /// <summary>
+    /// Get Category By Id
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [Authorize]
+    [HttpGet("{id}")]
+    public async Task<GetCategoryByIdResponseModel> GetCategoryById([FromRoute] string id)
+    {
+        var model =  new GetCategoryByIdRequestModel();
         return await Mediator.Send(model);
     }
     
@@ -31,9 +55,35 @@ public class CategoryController : BaseController
     /// <returns></returns>
     [Authorize]
     [HttpPost]
-    public async Task<CreateCategoryResponseModel> GetUsers([FromBody] CreateCategoryRequestModel model)
+    public async Task<CreateCategoryResponseModel> CreateCategory([FromBody] CreateCategoryRequestModel model)
     {
         return await Mediator.Send(model);
+    }
+    
+    /// <summary>
+    /// Update Category
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    [Authorize]
+    [HttpPut("{id}")]
+    public async Task<UpdateCategoryResponseModel> UpdateCategory([FromRoute] string id, [FromBody] UpdateCategoryRequestModel model)
+    {
+        model.Id = id;
+        return await Mediator.Send(model);
+    }
+    
+    /// <summary>
+    /// Delete Category
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [Authorize]
+    [HttpDelete("{id}")]
+    public async Task<DeleteCategoryResponseModel> DeleteCategory([FromRoute] string id)
+    {
+        return await Mediator.Send(new DeleteCategoryRequestModel { Id = id });
     }
     
 

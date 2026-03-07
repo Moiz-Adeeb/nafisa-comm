@@ -162,7 +162,7 @@ public class UserController : BaseController
     /// </summary>
     /// <returns></returns>
     [HttpPost("reset-token")]
-    public async Task<GenerateResetPasswordTokenResponseModel> GenerateResetPassword(        GenerateResetPasswordTokenRequestModel model)
+    public async Task<GenerateResetPasswordTokenResponseModel> GenerateResetPassword(GenerateResetPasswordTokenRequestModel model)
     {
         return await Mediator.Send(model);
     }
