@@ -30,7 +30,7 @@ public class ProductController : BaseController
     /// <param name="model"></param>
     /// <returns></returns>
     [Authorize]
-    [HttpGet("/category/{id}")]
+    [HttpGet("category/{id}")]
     public async Task<GetProductsOfCategoryResponseModel> GetProductsOfCategory([FromRoute] string id, [FromQuery] GetProductsOfCategoryRequestModel model)
     {
         model.Id = id;
@@ -44,7 +44,7 @@ public class ProductController : BaseController
     /// <returns></returns>
     [Authorize]
     [HttpGet("{id}")]
-    public async Task<GetProductByIdResponseModel> GetCategoryById([FromRoute] string id)
+    public async Task<GetProductByIdResponseModel> GetProductById([FromRoute] string id)
     {
         var model =  new GetProductByIdRequestModel{ Id = id };
         return await Mediator.Send(model);
@@ -57,37 +57,34 @@ public class ProductController : BaseController
     /// <returns></returns>
     [Authorize(Roles = RoleNames.Administrator)]
     [HttpPost]
-    public async Task<CreateProductResponseModel> CreateCategory([FromBody] CreateProductRequestModel model)
+    public async Task<CreateProductResponseModel> CreateProduct([FromBody] CreateProductRequestModel model)
     {
         return await Mediator.Send(model);
     }
     
-    ///// <summary>
-    ///// Update Category
-    ///// </summary>
-    ///// <param name="id"></param>
-    ///// <param name="model"></param>
-    ///// <returns></returns>
-    //[Authorize]
-    //[HttpPut("{id}")]
-    //public async Task<UpdateCategoryResponseModel> UpdateCategory([FromRoute] string id, [FromBody] UpdateCategoryRequestModel model)
-    //{
-    //    model.Id = id;
-    //    return await Mediator.Send(model);
-    //}
+    /// <summary>
+    /// Update Product
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    [Authorize(Roles = RoleNames.Administrator)]
+    [HttpPut("{id}")]
+    public async Task<UpdateProductResponseModel> UpdateProduct([FromRoute] string id, [FromBody] UpdateProductRequestModel model)
+    {
+        model.Id = id;
+        return await Mediator.Send(model);
+    }
     
-    ///// <summary>
-    ///// Delete Category
-    ///// </summary>
-    ///// <param name="id"></param>
-    ///// <returns></returns>
-    //[Authorize]
-    //[HttpDelete("{id}")]
-    //public async Task<DeleteCategoryResponseModel> DeleteCategory([FromRoute] string id)
-    //{
-    //    return await Mediator.Send(new DeleteCategoryRequestModel { Id = id });
-    //}
-    
-
-    
+    /// <summary>
+    /// Delete Product
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [Authorize(Roles = RoleNames.Administrator)]
+    [HttpDelete("{id}")]
+    public async Task<DeleteProductResponseModel> DeleteProduct([FromRoute] string id)
+    {
+        return await Mediator.Send(new DeleteProductRequestModel { Id = id });
+    }
 }

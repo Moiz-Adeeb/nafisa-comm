@@ -95,4 +95,31 @@ public class ImageService : IImageService
             return null;
         }
     }
+    
+    public async Task<bool> DeleteImageFromServer(string relativePath)
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(relativePath)) return false;
+            
+            string fullPath = Path.Combine(
+                Directory.GetCurrentDirectory(), 
+                "wwwroot", 
+                relativePath.TrimStart('/', '\\') 
+            );
+
+            if (File.Exists(fullPath))
+            {
+                await Task.Run(() => File.Delete(fullPath));
+                return true;
+            }
+
+            return false;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error deleting image: {ex.Message}");
+            return false;
+        }
+    }
 }

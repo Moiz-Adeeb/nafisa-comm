@@ -21,6 +21,18 @@ namespace Common.Extensions
             
             return stringContent.Substring(0, maxLength) + "...";
         }
+        
+        public static bool IsBase64(this string str)
+        {
+            if (string.IsNullOrWhiteSpace(str)) return false;
+
+            // 1. Check for Data URI prefix from frontend
+            if (str.Contains(",")) return true; 
+
+            // 2. Technical check for raw Base64 string
+            Span<byte> buffer = new Span<byte>(new byte[str.Length]);
+            return Convert.TryFromBase64String(str, buffer, out _);
+        }
     }
 
     public static class StreamExtension
