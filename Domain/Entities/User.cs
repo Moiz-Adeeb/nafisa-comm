@@ -15,11 +15,11 @@ public class User : IdentityUser, IBase
     public DateTimeOffset CreatedDate { get; set; }
     public DateTimeOffset UpdatedDate { get; set; }
     public bool IsDeleted { get; set; }
-    
     public string DeliveryAddress { get; set; }
     public string City { get; set; }
     public int? PostalCode { get; set; }
     public string Image { get; set; }
+    public bool IsEnabled { get; set; }
     
     
     /// <summary>
@@ -31,7 +31,10 @@ public class User : IdentityUser, IBase
     /// Navigation property for the claims this user possesses.
     /// </summary>
     public virtual ICollection<UserClaim> UserClaims { get; set; }
-    public bool IsEnabled { get; set; }
+    
+    // Navigation Properties 
     public IEnumerable<UserSetting> UserSettings { get; set; }
     public virtual ICollection<Order> Orders { get; set; }  
+    public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
+    public virtual ICollection<WishList> WishList { get; set; } = new List<WishList>();
 }

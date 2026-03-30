@@ -10,7 +10,10 @@ using Persistence.Extension;
 
 namespace Application.Services.Products.Queries;
 
-public class GetProductsRequestModel : GetPagedRequest<GetProductsResponseModel>{  }
+public class GetProductsRequestModel : GetPagedRequest<GetProductsResponseModel>
+{
+    public string CategoryId { get; set; }
+}
 
 public class GetProductsRequestModelValidator : PageRequestValidator<GetProductsRequestModel>
 {
@@ -32,6 +35,11 @@ public class GetProductsRequestHandler : IRequestHandler<GetProductsRequestModel
     )
     {
         Expression<Func<Product, bool>> query = p => true;
+        if (request.CategoryId.IsNotNullOrWhiteSpace())
+        {
+            query = query.AndAlso(p => p.CategoryId == request.CategoryId);
+        }
+        
         if (request.Search.IsNotNullOrWhiteSpace())
         {
             query = query.AndAlso(p =>
@@ -39,8 +47,7 @@ public class GetProductsRequestHandler : IRequestHandler<GetProductsRequestModel
             );
         }
         
-        var list = await _context
-            .Product.GetManyReadOnly(query, request)
+        var list = await _context.Product.GetManyReadOnly(query, request)
             .Select(ProductSelector.Selector)
             .ToListAsync(cancellationToken: cancellationToken);
         var count = await _context.Product.ActiveCount(query, cancellationToken: cancellationToken);

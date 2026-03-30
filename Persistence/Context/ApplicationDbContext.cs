@@ -26,6 +26,8 @@ namespace Persistence.Context
         public DbSet<ProductImage> ProductImage { get; set; }
         public DbSet<Order> Order { get; set; }
         public DbSet<OrderItem> OrderItem { get; set; }
+        public DbSet<Review> Review { get; set; }
+        public DbSet<WishList> WishList { get; set; }
 
 
         // public DbSet<AuditLog> AuditLogs { get; set; }
@@ -36,7 +38,7 @@ namespace Persistence.Context
         // public DbSet<Company> Companies { get; set; }
         // public DbSet<CompanyBranch> CompanyBranches { get; set; }
         // public DbSet<CompanyStaff> CompanyStaffs { get; set; }
-         //public DbSet<AdminRole> AdminRoles { get; set; }
+        //public DbSet<AdminRole> AdminRoles { get; set; }
         // public DbSet<AdminRoleClaim> AdminRoleClaims { get; set; }
         // public DbSet<CompanyRole> CompanyRoles { get; set; }
         // public DbSet<CompanyRoleClaim> CompanyRoleClaims { get; set; }

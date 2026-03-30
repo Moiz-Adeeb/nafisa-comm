@@ -1,5 +1,6 @@
 using System.Linq.Expressions;
 using System.Runtime.InteropServices;
+using Application.Services.Reviews.Models;
 using Application.Shared;
 using Domain.Entities;
 
@@ -8,6 +9,7 @@ namespace Application.Services.Products.Models;
 public class ProductDetailDto : ProductDto
 {
     public List<ProductImageDto> Images { get; set; }
+    public List<ReviewDto> Reviews { get; set; }
     
     public ProductDetailDto() { }
 
@@ -42,6 +44,8 @@ public class ProductDto
     public bool IsActive { get; set; }
     public string CategoryId { get; set; }
     public ProductImageDto Image { get; set; }
+    public decimal Rating { get; set; }
+    public int ReviewCount { get; set; }
     public DateTimeOffset CreatedDate { get; set; }
 
     public ProductDto() { }
@@ -56,8 +60,12 @@ public class ProductDto
             .FirstOrDefault(p => p.IsMain);
         Price = product.Price;
         DiscountPrice = product.DiscountPrice;
+        Stock = product.Stock;
+        SoldQuantity = product.SoldQuantity;
         IsActive = product.IsActive;
         CategoryId = product.CategoryId;
+        Rating = product.Rating;
+        ReviewCount = product.Reviews.Count();
         CreatedDate = product.CreatedDate;
     }
 }
@@ -79,8 +87,12 @@ public class ProductSelector
             }).FirstOrDefault(p => p.IsMain),
         Price = p.Price,
         DiscountPrice = p.DiscountPrice,
+        Stock = p.Stock,
+        SoldQuantity = p.SoldQuantity,
         IsActive = p.IsActive,
         CategoryId = p.CategoryId,
+        Rating = p.Rating,
+        ReviewCount = p.Reviews.Count(),
         CreatedDate = p.CreatedDate,
     };
     public static readonly Expression<Func<Product, ProductDetailDto>> SelectorDetail = p => new ProductDetailDto()
@@ -102,6 +114,8 @@ public class ProductSelector
         SoldQuantity = p.SoldQuantity,
         IsActive = p.IsActive,
         CategoryId = p.CategoryId,
+        Rating = p.Rating,
+        ReviewCount = p.Reviews.Count(),
         CreatedDate = p.CreatedDate,
     };
 
