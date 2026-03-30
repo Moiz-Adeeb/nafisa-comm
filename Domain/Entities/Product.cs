@@ -11,7 +11,6 @@ public class Product : Base
     public int Stock { get; set; }
     public int SoldQuantity { get; set; }
     public bool IsActive { get; set; } = true;
-    
     public string CategoryId { get; set; }
     public decimal Rating { get; set; } = 0;
     
@@ -22,4 +21,6 @@ public class Product : Base
     // Collections
     public virtual ICollection<ProductImage> Images { get; set; } = new List<ProductImage>();
     public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
+    
+    public uint RowVersion { get; set; }
 }

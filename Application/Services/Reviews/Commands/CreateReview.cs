@@ -12,18 +12,18 @@ namespace Application.Services.Reviews.Commands;
 
 public class CreateReviewRequestModel : IRequest<CreateReviewResponseModel>
 {
+    public string ProductId { get; set; }
     public string ProductReview { get; set; }
     public decimal Rating { get; set; }
-    public string ProductId { get; set; }
 }
 
 public class CreateReviewRequestModelValidator : AbstractValidator<CreateReviewRequestModel>
 {
     public CreateReviewRequestModelValidator()
     {
+        RuleFor(x => x.ProductId).Required();
         RuleFor(x => x.ProductReview).Required().Max(500);
         RuleFor(x => x.Rating).Required().Min(0).Max(5);
-        RuleFor(x => x.ProductId).Required();
     }
 }
 

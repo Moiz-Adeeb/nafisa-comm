@@ -51,7 +51,7 @@ public class ProductController : BaseController
     }
     
     /// <summary>
-    /// Create Category
+    /// Create Product
     /// </summary>
     /// <param name="model"></param>
     /// <returns></returns>

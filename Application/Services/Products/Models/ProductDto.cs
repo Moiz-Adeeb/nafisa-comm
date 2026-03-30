@@ -28,6 +28,8 @@ public class ProductDetailDto : ProductDto
         SoldQuantity = product.SoldQuantity;
         IsActive = product.IsActive;
         CategoryId = product.CategoryId;
+        Rating = product.Rating;
+        ReviewCount = product.Reviews.Count();
         CreatedDate = product.CreatedDate;
     }
 }
@@ -101,7 +103,7 @@ public class ProductSelector
         Name = p.Name,
         Description = p.Description,
         Images = p.Images
-            .Where(i => i.IsDeleted == false && i.IsMain)
+            .Where(i => i.IsDeleted == false)
             .Select(i => new ProductImageDto
             {
                 Id = i.Id,

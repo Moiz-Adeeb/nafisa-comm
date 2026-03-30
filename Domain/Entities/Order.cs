@@ -7,16 +7,12 @@ public class Order : Base
 {
     // Human-Readable Number Code
     public string OrderNumber { get; set; }
-    
     public string UserId { get; set; }
-    
-    public string DeliveryAddress { get; set; }
     public string City { get; set; }
     public int? PostalCode { get; set; }
+    public string DeliveryAddress { get; set; }
     public string PhoneNumber { get; set; }
-    
     public decimal TotalAmount { get; set; }
-    
     public OrderStatus Status { get; set; }
     public DateTimeOffset OrderDate { get; set; }
     
@@ -25,6 +21,6 @@ public class Order : Base
     public virtual User User { get; set; }
     
     // Collections
-    public virtual ICollection<OrderItem> OrderItems { get; set; }
+    public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 
 }

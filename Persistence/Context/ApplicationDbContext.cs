@@ -28,6 +28,7 @@ namespace Persistence.Context
         public DbSet<OrderItem> OrderItem { get; set; }
         public DbSet<Review> Review { get; set; }
         public DbSet<WishList> WishList { get; set; }
+        public DbSet<Cart> Cart { get; set; }
 
 
         // public DbSet<AuditLog> AuditLogs { get; set; }
@@ -57,78 +58,10 @@ namespace Persistence.Context
             modelBuilder.Entity<User>()
                 .HasIndex(c =>  c.Email)
                 .IsUnique();
-
-            // modelBuilder.Entity<Conversation>()
-            //     .HasIndex(c => c.ConversationId)
-            //     .IsUnique();
-            //
-            // modelBuilder.Entity<Conversation>()
-            //     .HasIndex(c => new { c.User1, c.User2 })
-            //     .IsUnique();
-            //
-            // modelBuilder.Entity<Conversation>()
-            //     .HasIndex(c => new { c.User1, c.LastMessageTime, });
-            //
-            // modelBuilder.Entity<Conversation>()
-            //     .HasIndex(c => new { c.User2, c.LastMessageTime, });
-            //
-            // modelBuilder.Entity<Conversation>()
-            //     .HasOne(c => c.User1Navigation)
-            //     .WithMany(u => u.ChatsAsUser1)
-            //     .HasForeignKey(c => c.User1)
-            //     .OnDelete(DeleteBehavior.Restrict);
-            //
-            // modelBuilder.Entity<Conversation>()
-            //     .HasOne(c => c.User2Navigation)
-            //     .WithMany(u => u.ChatsAsUser2)
-            //     .HasForeignKey(c => c.User2)
-            //     .OnDelete(DeleteBehavior.Restrict);
-            //
-            //modelBuilder.Entity<Messages>()
-            //    .HasOne(c => c.Conversation)
-            //    .WithMany(u => u.Messages)
-            //    .HasForeignKey(c => c.ConversationId)
-            //    .OnDelete(DeleteBehavior.Restrict);
-            //
-            // modelBuilder.Entity<Conversation>()
-            //     .HasIndex(c => new { c.User1, c.LastMessageTime })
-            //     .IncludeProperties(c => new { c.ConversationId, c.User2 });
-            //
-            //modelBuilder.Entity<Conversation>()
-            //    .Navigation(c => c.User1Navigation)
-            //    .AutoInclude();
-            //
-            // modelBuilder.Entity<Conversation>()
-            //     .Navigation(c => c.Messages)
-            //     .AutoInclude();
-            //
-            // modelBuilder.Entity<Messages>()
-            //     .Navigation(c => c.Conversation)
-            //     .AutoInclude();
-            //
-            // modelBuilder.Entity<Messages>()
-            //     .HasIndex(m => new { m.ConversationId, m.SentTime });
-            //
-            // modelBuilder.Entity<Messages>()
-            //     .HasIndex(m => new { m.ReceiverId, m.Status, m.SentTime });
-            //
-            // modelBuilder.Entity<Messages>()
-            //     .HasOne(m => m.Conversation)
-            //     .WithMany(c => c.Messages)
-            //     .HasForeignKey(m => m.ConversationId)
-            //     .OnDelete(DeleteBehavior.Restrict);
-            //
-            // modelBuilder.Entity<Messages>()
-            //     .HasOne(m => m.Sender)
-            //     .WithMany(u => u.SentMessages)
-            //     .HasForeignKey(m => m.SenderId)
-            //     .OnDelete(DeleteBehavior.Restrict);
-            //
-            // modelBuilder.Entity<Messages>()
-            //     .HasOne(m => m.Receiver)
-            //     .WithMany(u => u.ReceivedMessages)
-            //     .HasForeignKey(m => m.ReceiverId)
-            //     .OnDelete(DeleteBehavior.Restrict);    
+            
+            modelBuilder.Entity<Product>()
+                .Property(p => p.RowVersion)
+                .IsRowVersion(); 
 
 
             //modelBuilder.UseEncryption(_provider);

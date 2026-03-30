@@ -34,7 +34,8 @@ public class User : IdentityUser, IBase
     
     // Navigation Properties 
     public IEnumerable<UserSetting> UserSettings { get; set; }
-    public virtual ICollection<Order> Orders { get; set; }  
+    public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
     public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
+    public virtual ICollection<Cart> Cart { get; set; } = new List<Cart>();
     public virtual ICollection<WishList> WishList { get; set; } = new List<WishList>();
 }
