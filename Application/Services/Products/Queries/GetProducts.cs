@@ -13,6 +13,7 @@ namespace Application.Services.Products.Queries;
 public class GetProductsRequestModel : GetPagedRequest<GetProductsResponseModel>
 {
     public string CategoryId { get; set; }
+    public string CompanyId { get; set; }
 }
 
 public class GetProductsRequestModelValidator : PageRequestValidator<GetProductsRequestModel>
@@ -38,6 +39,11 @@ public class GetProductsRequestHandler : IRequestHandler<GetProductsRequestModel
         if (request.CategoryId.IsNotNullOrWhiteSpace())
         {
             query = query.AndAlso(p => p.CategoryId == request.CategoryId);
+        }        
+        
+        if (request.CompanyId.IsNotNullOrWhiteSpace())
+        {
+            query = query.AndAlso(p => p.CompanyId == request.CompanyId);
         }
         
         if (request.Search.IsNotNullOrWhiteSpace())

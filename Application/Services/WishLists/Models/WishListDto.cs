@@ -24,8 +24,11 @@ public class WishListDto : ProductDto
         SoldQuantity = wishList.Product.SoldQuantity;
         IsActive = wishList.Product.IsActive;
         CategoryId = wishList.Product.CategoryId;
+        CategoryName = wishList.Product.Category.Name;
+        CompanyId = wishList.Product.CompanyId;
+        CompanyName = wishList.Product.Company.Name;
         Rating = wishList.Product.Rating;
-        ReviewCount = wishList.Product.Reviews.Count();
+        ReviewCount = wishList.Product.Reviews.Count;
         CreatedDate = wishList.Product.CreatedDate;
     }
 }
@@ -49,6 +52,11 @@ public class WishListDetailDto : ProductDetailDto
         SoldQuantity = wishList.Product.SoldQuantity;
         IsActive = wishList.Product.IsActive;
         CategoryId = wishList.Product.CategoryId;
+        CategoryName = wishList.Product.Category.Name;
+        CompanyId = wishList.Product.CompanyId;
+        CompanyName = wishList.Product.Company.Name;
+        Rating = wishList.Product.Rating;
+        ReviewCount = wishList.Product.Reviews.Count;
         CreatedDate = wishList.Product.CreatedDate;
     }
 }
@@ -73,6 +81,9 @@ public class WishListSelector
         SoldQuantity = w.Product.SoldQuantity,
         IsActive = w.Product.IsActive,
         CategoryId = w.Product.CategoryId,
+        CategoryName = w.Product.Category.Name,
+        CompanyId = w.Product.CompanyId,
+        CompanyName = w.Product.Company.Name,
         Rating = w.Product.Rating,
         ReviewCount = w.Product.Reviews.Count(),
         CreatedDate = w.Product.CreatedDate,
@@ -96,6 +107,9 @@ public class WishListSelector
         SoldQuantity = w.Product.SoldQuantity,
         IsActive = w.Product.IsActive,
         CategoryId = w.Product.CategoryId,
+        CategoryName = w.Product.Category.Name,
+        CompanyId = w.Product.CompanyId,
+        CompanyName = w.Product.Company.Name,
         Rating = w.Product.Rating,
         ReviewCount = w.Product.Reviews.Count(),
         CreatedDate = w.Product.CreatedDate,

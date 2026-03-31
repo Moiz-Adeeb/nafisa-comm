@@ -22,6 +22,7 @@ namespace Persistence.Context
         public DbSet<AppSetting> AppSettings { get; set; }
         public DbSet<UserSetting> UserSettings { get; set; }
         public DbSet<Category> Category { get; set; }
+        public DbSet<Company> Company { get; set; }
         public DbSet<Product> Product { get; set; }
         public DbSet<ProductImage> ProductImage { get; set; }
         public DbSet<Order> Order { get; set; }

@@ -49,7 +49,7 @@ namespace WebApi
                     warning.Ignore(RelationalEventId.PendingModelChangesWarning);
                 });
                 var connectionString = Configuration["ConnectionStrings:DefaultConnection"];
-                options
+                /*options
                     .UseNpgsql(
                         connectionString,
                         b =>
@@ -57,8 +57,8 @@ namespace WebApi
                             b.MigrationsAssembly("Persistence");
                         }
                     )
-                    .UseCamelCaseNamingConvention();
-                //options.UseInMemoryDatabase("ChatAppInMemoryDb");
+                    .UseCamelCaseNamingConvention();*/
+                options.UseInMemoryDatabase("ChatAppInMemoryDb");
                 options.UseOpenIddict();
             });
 
@@ -290,6 +290,9 @@ namespace WebApi
             services.AddSingleton<IExcelService, ExcelService>();
             services.AddSingleton<IAlertService, AlertService>();
             services.AddSingleton<IPdfService, PdfService>();
+            // services.AddSingleton<IOrderTimeoutBackgroundService, OrderTimeoutBackgroundService>();
+            services.AddSingleton<OrderTimeoutBackgroundService>(); 
+            services.AddHostedService<OrderTimeoutBackgroundService>(sp => sp.GetRequiredService<OrderTimeoutBackgroundService>());
             services.AddSignalR();
             services.AddLogging(conf =>
             {

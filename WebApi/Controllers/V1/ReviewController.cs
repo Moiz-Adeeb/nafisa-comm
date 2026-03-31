@@ -16,7 +16,6 @@ public class ReviewController : BaseController
     /// </summary>
     /// <param name="model"></param>
     /// <returns></returns>
-    [Authorize]
     [HttpGet]
     public async Task<GetReviewsResponseModel> GetReviews([FromQuery] GetReviewsRequestModel model)
     {
@@ -29,7 +28,6 @@ public class ReviewController : BaseController
     /// </summary>
     /// <param name="productId"></param>
     /// <returns></returns>
-    [Authorize]
     [HttpGet("{productId}")]
     public async Task<GetReviewByIdResponseModel> GetReviewById([FromRoute] string productId)
     {
@@ -68,7 +66,7 @@ public class ReviewController : BaseController
     /// </summary>
     /// <param name="productId"></param>
     /// <returns></returns>
-    [Authorize(Roles = RoleNames.Administrator)]
+    [Authorize]
     [HttpDelete("{productId}")]
     public async Task<DeleteReviewResponseModel> DeleteReview([FromRoute] string productId)
     {

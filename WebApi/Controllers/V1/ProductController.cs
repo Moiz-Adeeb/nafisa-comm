@@ -16,7 +16,6 @@ public class ProductController : BaseController
     /// </summary>
     /// <param name="model"></param>
     /// <returns></returns>
-    [Authorize]
     [HttpGet]
     public async Task<GetProductsResponseModel> GetProducts([FromQuery] GetProductsRequestModel model)
     {
@@ -29,7 +28,6 @@ public class ProductController : BaseController
     /// <param name="id"></param>
     /// <param name="model"></param>
     /// <returns></returns>
-    [Authorize]
     [HttpGet("category/{id}")]
     public async Task<GetProductsOfCategoryResponseModel> GetProductsOfCategory([FromRoute] string id, [FromQuery] GetProductsOfCategoryRequestModel model)
     {
@@ -42,7 +40,6 @@ public class ProductController : BaseController
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [Authorize]
     [HttpGet("{id}")]
     public async Task<GetProductByIdResponseModel> GetProductById([FromRoute] string id)
     {

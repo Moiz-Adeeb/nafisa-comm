@@ -15,7 +15,6 @@ public class CategoryController : BaseController
     /// Get Category Tree
     /// </summary>
     /// <returns></returns>
-    [Authorize]
     [HttpGet("tree")]
     public async Task<GetFullCategoryTreeResponseModel> GetCategoryTree()
     {
@@ -28,7 +27,6 @@ public class CategoryController : BaseController
     /// </summary>
     /// <param name="model"></param>
     /// <returns></returns>
-    [Authorize]
     [HttpGet]
     public async Task<GetCategoriesResponseModel> GetCategories([FromQuery] GetCategoriesRequestModel model)
     {
@@ -40,7 +38,6 @@ public class CategoryController : BaseController
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [Authorize]
     [HttpGet("{id}")]
     public async Task<GetCategoryByIdResponseModel> GetCategoryById([FromRoute] string id)
     {

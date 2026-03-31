@@ -28,6 +28,9 @@ public class ProductDetailDto : ProductDto
         SoldQuantity = product.SoldQuantity;
         IsActive = product.IsActive;
         CategoryId = product.CategoryId;
+        CategoryName = product.Category.Name;
+        CompanyId = product.CompanyId;
+        CompanyName = product.Company.Name;
         Rating = product.Rating;
         ReviewCount = product.Reviews.Count();
         CreatedDate = product.CreatedDate;
@@ -45,6 +48,9 @@ public class ProductDto
     public int SoldQuantity { get; set; }
     public bool IsActive { get; set; }
     public string CategoryId { get; set; }
+    public string CategoryName { get; set; }
+    public string CompanyId { get; set; }
+    public string CompanyName { get; set; }
     public ProductImageDto Image { get; set; }
     public decimal Rating { get; set; }
     public int ReviewCount { get; set; }
@@ -66,6 +72,9 @@ public class ProductDto
         SoldQuantity = product.SoldQuantity;
         IsActive = product.IsActive;
         CategoryId = product.CategoryId;
+        CategoryName = product.Category.Name;
+        CompanyId = product.CompanyId;
+        CompanyName = product.Company.Name;
         Rating = product.Rating;
         ReviewCount = product.Reviews.Count();
         CreatedDate = product.CreatedDate;
@@ -93,6 +102,9 @@ public class ProductSelector
         SoldQuantity = p.SoldQuantity,
         IsActive = p.IsActive,
         CategoryId = p.CategoryId,
+        CategoryName = p.Category.Name,
+        CompanyId = p.CompanyId,
+        CompanyName = p.Company.Name,
         Rating = p.Rating,
         ReviewCount = p.Reviews.Count(),
         CreatedDate = p.CreatedDate,
@@ -116,6 +128,9 @@ public class ProductSelector
         SoldQuantity = p.SoldQuantity,
         IsActive = p.IsActive,
         CategoryId = p.CategoryId,
+        CategoryName = p.Category.Name,
+        CompanyId = p.CompanyId,
+        CompanyName = p.Company.Name,
         Rating = p.Rating,
         ReviewCount = p.Reviews.Count(),
         CreatedDate = p.CreatedDate,

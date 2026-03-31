@@ -24,8 +24,11 @@ public class CartDto : ProductDto
         SoldQuantity = cart.Product.SoldQuantity;
         IsActive = cart.Product.IsActive;
         CategoryId = cart.Product.CategoryId;
+        CategoryName = cart.Product.Category.Name;
+        CompanyId = cart.Product.CompanyId;
+        CompanyName = cart.Product.Company.Name;
         Rating = cart.Product.Rating;
-        ReviewCount = cart.Product.Reviews.Count();
+        ReviewCount = cart.Product.Reviews.Count;
         CreatedDate = cart.Product.CreatedDate;
     }
 }
@@ -49,6 +52,11 @@ public class CartDetailDto : ProductDetailDto
         SoldQuantity = cart.Product.SoldQuantity;
         IsActive = cart.Product.IsActive;
         CategoryId = cart.Product.CategoryId;
+        CategoryName = cart.Product.Category.Name;
+        CompanyId = cart.Product.CompanyId;
+        CompanyName = cart.Product.Company.Name;
+        Rating = cart.Product.Rating;
+        ReviewCount = cart.Product.Reviews.Count;
         CreatedDate = cart.Product.CreatedDate;
     }
 }
@@ -73,6 +81,9 @@ public class CartSelector
         SoldQuantity = w.Product.SoldQuantity,
         IsActive = w.Product.IsActive,
         CategoryId = w.Product.CategoryId,
+        CategoryName = w.Product.Category.Name,
+        CompanyId = w.Product.CompanyId,
+        CompanyName = w.Product.Company.Name,
         Rating = w.Product.Rating,
         ReviewCount = w.Product.Reviews.Count(),
         CreatedDate = w.Product.CreatedDate,
@@ -96,6 +107,9 @@ public class CartSelector
         SoldQuantity = w.Product.SoldQuantity,
         IsActive = w.Product.IsActive,
         CategoryId = w.Product.CategoryId,
+        CategoryName = w.Product.Category.Name,
+        CompanyId = w.Product.CompanyId,
+        CompanyName = w.Product.Company.Name,
         Rating = w.Product.Rating,
         ReviewCount = w.Product.Reviews.Count(),
         CreatedDate = w.Product.CreatedDate,

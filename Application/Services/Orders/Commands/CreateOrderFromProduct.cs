@@ -12,19 +12,19 @@ using Persistence.Extension;
 
 namespace Application.Services.Orders.Commands;
 
-public class CreateOrderRequestModel : IRequest<CreateOrderResponseModel>
+public class CreateOrderFromProductRequestModel : IRequest<CreateOrderFromProductResponseModel>
 {
     public string City { get; set; }
     public int PostalCode { get; set; }
     public string DeliveryAddress { get; set; }
     public string PhoneNumber { get; set; }
-    public string ProductId { get; set; }
+    public string ProductId { get; set; }   
     public int Quantity { get; set; }
 }
 
-public class CreateOrderRequestModelValidator : AbstractValidator<CreateOrderRequestModel>
+public class CreateOrderFromProductRequestModelValidator : AbstractValidator<CreateOrderFromProductRequestModel>
 {
-    public CreateOrderRequestModelValidator()
+    public CreateOrderFromProductRequestModelValidator()
     {
         RuleFor(x => x.City).Required();
         RuleFor(x => x.DeliveryAddress).Required();
@@ -34,12 +34,12 @@ public class CreateOrderRequestModelValidator : AbstractValidator<CreateOrderReq
     }
 }
 
-public class CreateOrderRequestHandler : IRequestHandler<CreateOrderRequestModel, CreateOrderResponseModel>
+public class CreateOrderFromProductRequestHandler : IRequestHandler<CreateOrderFromProductRequestModel, CreateOrderFromProductResponseModel>
 {
     private readonly ApplicationDbContext _context;
     private readonly ISessionService _sessionService;
 
-    public CreateOrderRequestHandler(
+    public CreateOrderFromProductRequestHandler(
         ApplicationDbContext context,
         ISessionService sessionService
     )
@@ -48,8 +48,8 @@ public class CreateOrderRequestHandler : IRequestHandler<CreateOrderRequestModel
         _sessionService = sessionService;
     }
 
-    public async Task<CreateOrderResponseModel> Handle(
-        CreateOrderRequestModel request,
+    public async Task<CreateOrderFromProductResponseModel> Handle(
+        CreateOrderFromProductRequestModel request,
         CancellationToken cancellationToken
     )
     {
@@ -91,6 +91,7 @@ public class CreateOrderRequestHandler : IRequestHandler<CreateOrderRequestModel
                 PostalCode = request.PostalCode,
                 PhoneNumber = request.PhoneNumber,
                 DeliveryAddress = request.DeliveryAddress,
+                OrderDate = DateTimeOffset.UtcNow,
                 OrderItems = new List<OrderItem>
                 {
                     new OrderItem
@@ -109,7 +110,7 @@ public class CreateOrderRequestHandler : IRequestHandler<CreateOrderRequestModel
             await _context.SaveChangesAsync(cancellationToken);
             await transaction.CommitAsync(cancellationToken);
 
-            return new CreateOrderResponseModel() { Data = new OrderDto(order) };
+            return new CreateOrderFromProductResponseModel() { Data = new OrderDto(order) };
         }
         catch (DbUpdateConcurrencyException)
         {
@@ -124,7 +125,7 @@ public class CreateOrderRequestHandler : IRequestHandler<CreateOrderRequestModel
     }
 }
 
-public class CreateOrderResponseModel
+public class CreateOrderFromProductResponseModel
 {
     public OrderDto Data { get; set; }
 }

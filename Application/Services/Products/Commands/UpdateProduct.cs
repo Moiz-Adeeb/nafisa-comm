@@ -16,9 +16,10 @@ namespace Application.Services.Products.Commands;
 public class UpdateProductRequestModel : IRequest<UpdateProductResponseModel>
 {
     public string Id { get; set; }
-    public string  Name { get; set; }
-    public string  Description { get; set; }
-    public string  CategoryId { get; set; }
+    public string Name { get; set; }
+    public string Description { get; set; }
+    public string CategoryId { get; set; }
+    public string CompanyId { get; set; }
     public decimal Price { get; set; }
     public decimal DiscountedPrice { get; set; }
     public int Stock { get; set; }
@@ -35,6 +36,7 @@ public class UpdateProductRequestModelValidator : AbstractValidator<UpdateProduc
         RuleFor(x => x.Name).Required().Max(50);
         RuleFor(x => x.Description).Max(500);
         RuleFor(x => x.CategoryId).Required();
+        RuleFor(x => x.CompanyId).Required();
         RuleFor(x => x.Price).Required();
         RuleFor(x => x.Stock).Required();
         RuleFor(x => x.MainImage).Required();
@@ -94,6 +96,14 @@ public class UpdateProductRequestHandler
             if (!categoryCheck) throw new NotFoundException(nameof(request.CategoryId));
             
             product.CategoryId = request.CategoryId;
+        }        
+        
+        if (request.CompanyId != product.CompanyId && request.CompanyId != null)
+        {
+            var companyCheck = await _context.Company.ActiveAny(c => c.Id == request.CompanyId);
+            if (!companyCheck) throw new NotFoundException(nameof(request.CompanyId));
+            
+            product.CompanyId = request.CompanyId;
         }
         
         if (request.MainImage.IsBase64()) 

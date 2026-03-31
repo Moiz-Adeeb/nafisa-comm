@@ -22,7 +22,9 @@
     <ProjectReference Include="..\Persistence\Persistence.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Services\Carts\Queries\" />
+    <Folder Include="Services\Company\Commands\" />
+    <Folder Include="Services\Company\Models\" />
+    <Folder Include="Services\Company\Queries\" />
     <Folder Include="Services\Orders\Queries\" />
   </ItemGroup>
 </Project>

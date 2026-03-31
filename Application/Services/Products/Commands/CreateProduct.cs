@@ -12,9 +12,10 @@ namespace Application.Services.Products.Commands;
 
 public class CreateProductRequestModel : IRequest<CreateProductResponseModel>
 {
-    public string  Name { get; set; }
-    public string  Description { get; set; }
-    public string  CategoryId { get; set; }
+    public string Name { get; set; }
+    public string Description { get; set; }
+    public string CategoryId { get; set; }
+    public string CompanyId { get; set; }
     public decimal Price { get; set; }
     public decimal DiscountedPrice { get; set; }
     public int Stock { get; set; }
@@ -30,6 +31,7 @@ public class CreateProductRequestModelValidator : AbstractValidator<CreateProduc
         RuleFor(x => x.Name).Required().Max(50);
         RuleFor(x => x.Description).Max(500);
         RuleFor(x => x.CategoryId).Required();
+        RuleFor(x => x.CompanyId).Required();
         RuleFor(x => x.Price).Required();
         RuleFor(x => x.Stock).Required();
         RuleFor(x => x.MainImage).Required();
@@ -58,13 +60,15 @@ public class CreateProductRequestHandler : IRequestHandler<CreateProductRequestM
         var name = request.Name;
         var existCheck = await _context.Product
             .ActiveAny(p => p.Name == name, cancellationToken);
-
         if(existCheck) throw new AlreadyExistsException(nameof(name));
         
         var categoryCheck = await _context.Category
             .ActiveAny(c => c.Id == request.CategoryId, cancellationToken);
-        
         if (categoryCheck) throw new NotFoundException(nameof(Category));
+
+        var companyCheck = await _context.Company
+            .ActiveAny(c => c.Id == request.CompanyId, cancellationToken);
+        if (companyCheck) throw new NotFoundException(nameof(Company));
         
         var productImages = new List<ProductImage>();
         var mainImagePath = await _imageService.SaveImageToServer(
@@ -97,6 +101,7 @@ public class CreateProductRequestHandler : IRequestHandler<CreateProductRequestM
             Name = request.Name,
             Description = request.Description,
             CategoryId = request.CategoryId,
+            CompanyId = request.CompanyId,
             Price = request.Price,
             DiscountPrice = request.DiscountedPrice,
             Stock = request.Stock,
